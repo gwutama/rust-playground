@@ -1,3 +1,5 @@
+use std::io;
+
 fn main() {
     println!("Hello, world!");
 
@@ -88,6 +90,21 @@ fn main() {
     let option_some = get_option_some();
     let option_none = get_option_none();
     println!("{:?} {:?}", option_some, option_none);
+
+    // Match
+    let name: String = match get_name() {
+        Some(n) => n,
+        None => "Unknown".to_string()
+    };
+
+    println!("Your name is {}", name);
+
+    let name2: &str = &name.as_str();
+    match name2 {
+        "Galuh" => println!("Such a cool name!"),
+        "Unknown" => println!("I don't know your name."),
+        _ => {}
+    }
 }
 
 fn get_result_ok() -> Result<bool, String> {
@@ -104,6 +121,17 @@ fn get_option_some() -> Option<String> {
 
 fn get_option_none() -> Option<String> {
     return None;
+}
+
+fn get_name() -> Option<String> {
+    println!("Please input your name.");
+    let mut buf = String::new();
+    io::stdin().read_line(&mut buf).ok().expect("Failed to read line");
+    let out: String = buf.trim().to_string();
+    if out.is_empty() {
+        return None;
+    }
+    return Some(buf.trim().to_string());
 }
 
 struct Player {
