@@ -30,6 +30,31 @@ fn main() {
     for item in items.iter() {
         println!("item = {}", item);
     }
+
+    // consumers
+    let range = 0..10;
+    let mut range2 = range.clone();
+    let range3 = range.clone();
+    let range4 = range.clone();
+
+    let range_vec = range.collect::<Vec<i32>>();
+    println!("range_vec = {:?}", range_vec);
+
+    let eight = range2.find(|x| *x == 8);
+    println!("eight = {:?}", eight);
+
+    // filter
+    let range_even = range3.filter(|x| is_even(*x)).collect::<Vec<i32>>();
+    println!("range_even = {:?}", range_even);
+
+    // map
+    let range_even_cubed = range4.filter(|x| is_even(*x))
+        .map(|x| x * x * x).collect::<Vec<i32>>();
+    println!("range_even_cubed = {:?}", range_even_cubed);
+
+    // fold
+    let sum = range_even_cubed.iter().fold(0, |sum, x| sum + x);
+    println!("sum = {}", sum);
 }
 
 fn triples(value: i32) -> i32 {
@@ -38,4 +63,8 @@ fn triples(value: i32) -> i32 {
 
 fn again<F: Fn(i32) -> i32>(fun: F, value: i32) -> i32 {
     return fun(fun(value));
+}
+
+fn is_even(value: i32) -> bool {
+    return value % 2 == 0;
 }
