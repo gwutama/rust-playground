@@ -3,6 +3,11 @@ struct MagicNumber {
     number: u32,
 }
 
+struct Magician {
+    name: String,
+    age: u32,
+}
+
 fn main() {
     println!("Hello, world!");
 
@@ -36,6 +41,20 @@ fn main() {
     println!("The value of p is {}", p);
     add_ten(&mut p);
     println!("The value of p is {}", p); // p is now 30
+
+    // matching references
+    let t: i32 = 5;
+    match t {
+        ref r => println!("Got a reference to {}", r),
+    }
+
+    let mut s: i32 = 5;
+    match s {
+        ref mut r => {
+            *r = 10;
+            println!("Got a mutable reference to {}", r);
+        },
+    }
 }
 
 fn square(x: &i32) -> i32 {
