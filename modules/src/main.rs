@@ -17,6 +17,9 @@ fn main() {
     let result2 = calc::mul(3, 4);
     println!("3 * 4 = {}", result2);
 
+    let result3 = calc::div(4.0, 2.0);
+    println!("4 / 2 = {}", result3);
+
     warn!("Something is not right!");
     info!("Shutting down!");
 }
