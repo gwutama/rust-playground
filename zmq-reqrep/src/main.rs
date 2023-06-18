@@ -2,11 +2,14 @@ use std::env;
 use std::thread;
 use std::time::Duration;
 
+const BIND: &str = "ipc:///tmp/hello";
+// const BIND: &str = "tcp://127.0.0.1:5555";
+
 fn run_server() {
     let context = zmq::Context::new();
     let responder = context.socket(zmq::REP).unwrap();
 
-    assert!(responder.bind("tcp://127.0.0.1:5555").is_ok());
+    assert!(responder.bind(BIND).is_ok());
 
     let mut msg = zmq::Message::new();
     loop {
@@ -23,7 +26,7 @@ fn run_client() {
     let context = zmq::Context::new();
     let requester = context.socket(zmq::REQ).unwrap();
 
-    assert!(requester.connect("tcp://localhost:5555").is_ok());
+    assert!(requester.connect(BIND).is_ok());
 
     let mut msg = zmq::Message::new();
 
